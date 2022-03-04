@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Icon, Table } from 'antd';
+import { Menu, Dropdown, Icon, Table } from 'antd';
 
 import DragAndDrop from '../contexts/DragAndDrop';
 import { filesForAccount } from '../utils';
@@ -20,7 +20,15 @@ const columns = [
   }
 ];
 
+const dropMenu = (
+  <Menu>
+    <Menu.Item key="1">Delete</Menu.Item>
+    <Menu.Item key="2">Host Preference</Menu.Item>
+  </Menu>
+);
+
 const components = onMove => ({
+
   body: {
     row: ({ children, i, type, ...rest }) => (
       <DragAndDrop.Draggable i={i} render={draggableProps => (
@@ -43,11 +51,13 @@ const components = onMove => ({
           )}
         />
       )} />
+
     )
   }
+
 });
 
-export default ({ account, files, onDownload, onMove, onNavigate }) => (
+export default ({ account, files, onDownload, onMove, onNavigate, dropMenu }) => (
   <Table
     columns={columns}
     components={components(onMove)}
@@ -58,6 +68,10 @@ export default ({ account, files, onDownload, onMove, onNavigate }) => (
         type === 'folder'
           ? onNavigate(type, name, i)
           : onDownload(downloadUrl),
+      onContextMenu: () => (
+        <Dropdown overlay={dropMenu} trigger={["contextMenu"]}>
+        </Dropdown>
+      ),
       type
     })}
     rowKey={({ id }) => id}
