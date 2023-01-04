@@ -9,7 +9,7 @@
     "customize-cra": "^0.2.14",
     "nodemon": "^1.19.4",
     "react-app-rewired": "^2.1.5",
-    "react-scripts": "2.1.5"
+    "react-scripts": "5.0.1"
   },
   "dependencies": {
     "antd": "^3.25.1",
